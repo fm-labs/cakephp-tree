@@ -91,15 +91,13 @@ class TreeBehaviorTest extends TestCase
         $this->assertMpttValues($expected, $this->table);
     }
 
-    public function testMove()
+    public function testMoveUpAndDown()
     {
-
         // move up second root node
-        $this->table->moveUp($this->table->get(11, ['cache' => false]), 1);
+        $this->table->moveUp($this->table->get(11), 1);
         $expected = [
-            //' -1: 0 - xxx',
-            ' 1: 2 - 11:alien hardware', // -> 21:22
-            ' 3:22 -  1:electronics', // -2: [21-1]
+            ' 1: 2 - 11:alien hardware',
+            ' 3:22 -  1:electronics',
             '_ 4:11 -  2:televisions',
             '__ 5: 6 -  3:tube',
             '__ 7: 8 -  4:lcd',
@@ -113,13 +111,38 @@ class TreeBehaviorTest extends TestCase
         $this->assertMpttValues($expected, $this->table);
 
         // move root node to bottom
-        $node = $this->table->moveDown($this->table->get(11, ['cache' => false]), 1);
+        $this->table->moveDown($this->table->get(11), 1);
+        $this->testAssertMpttValues();
+    }
 
+    public function testMoveAfterOnSameLevel()
+    {
+        $this->markTestIncomplete('Not implemented yet');
+
+        $this->table->moveAfter($this->table->get(3), 5);
+        debug($this->table->find('treeList')->toArray());
         $expected = [
             ' 1:20 -  1:electronics',
             '_ 2: 9 -  2:televisions',
-            '__ 3: 4 -  3:tube',
-            '__ 5: 6 -  4:lcd',
+            '__ 3: 4 -  4:lcd',
+            '__ 5: 6 -  5:plasma',
+            '__ 7: 8 -  3:tube',
+            '_10:19 -  6:portable',
+            '__11:14 -  7:mp3',
+            '___12:13 -  8:flash',
+            '__15:16 -  9:cd',
+            '__17:18 - 10:radios',
+            '21:22 - 11:alien hardware'
+        ];
+        $this->assertMpttValues($expected, $this->table);
+
+        $this->table->moveAfter($this->table->get(3), 4);
+        debug($this->table->find('treeList')->toArray());
+        $expected = [
+            ' 1:20 -  1:electronics',
+            '_ 2: 9 -  2:televisions',
+            '__ 3: 4 -  4:lcd',
+            '__ 5: 6 -  3:tube',
             '__ 7: 8 -  5:plasma',
             '_10:19 -  6:portable',
             '__11:14 -  7:mp3',
@@ -128,9 +151,35 @@ class TreeBehaviorTest extends TestCase
             '__17:18 - 10:radios',
             '21:22 - 11:alien hardware'
         ];
-        //debug($this->table->find('treeList')->toArray());
         $this->assertMpttValues($expected, $this->table);
     }
+
+    /**
+     * @TestIgnore
+     */
+    public function testMoveAfter()
+    {
+        $this->markTestIncomplete('Not implemented yet');
+
+        //$this->table->moveAfter($this->table->get(6), 11);
+        //debug($this->table->find('treeList')->toArray());
+        $expected = [
+            ' 1:22 -  1:electronics',
+            '_ 2: 9 -  2:televisions',
+            '__ 3: 4 -  3:tube',
+            '__ 5: 6 -  4:lcd',
+            '__ 7: 8 -  5:plasma',
+            '10:11 - 11:alien hardware',
+            '12:21 -  6:portable',
+            '_13:16 -  7:mp3',
+            '__14:15 -  8:flash',
+            '_17:18 -  9:cd',
+            '_19:20 - 10:radios',
+        ];
+        //$this->assertMpttValues($expected, $this->table);
+    }
+
+
 
     /**
      * Assert MPTT values

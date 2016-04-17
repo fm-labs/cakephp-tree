@@ -11,6 +11,12 @@ namespace Tree\Controller;
 use Cake\Core\Exception\Exception;
 use Cake\Network\Exception\NotFoundException;
 
+/**
+ * Class TreeSortControllerTrait
+ * @package Tree\Controller
+ *
+ * @property string $modelClass
+ */
 trait TreeSortControllerTrait {
 
     public function tree_sort() {
