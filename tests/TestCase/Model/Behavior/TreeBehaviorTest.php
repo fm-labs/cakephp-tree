@@ -15,7 +15,7 @@ use Cake\TestSuite\TestCase;
 use DebugKit\Database\Log\DebugLog;
 
 /**
- * @property \Cake\ORM\Table table
+ * @property \Cake\ORM\Table $table
  */
 class TreeBehaviorTest extends TestCase
 {
