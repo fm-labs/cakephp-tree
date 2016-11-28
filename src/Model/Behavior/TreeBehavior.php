@@ -18,12 +18,57 @@ class TreeBehavior extends BaseTreeBehavior
     public function __construct(Table $table, array $config = [])
     {
         $this->_defaultConfig['implementedMethods']['moveAfter'] = 'moveAfter';
+        $this->_defaultConfig['implementedMethods']['moveTo'] = 'moveTo';
         parent::__construct($table, $config);
     }
 
     public function initialize(array $config)
     {
         parent::initialize($config);
+    }
+
+    public function moveTo(EntityInterface $node, $newParentId, $newPos, $oldPos)
+    {
+        $oldParentId = $node->parent_id;
+        // position change within same parent node
+        if ($newParentId == $oldParentId) {
+            $delta = $newPos - $oldPos;
+            if ($delta > 0) {
+                $menuItem = $this->moveDown($node, $delta);
+            } elseif ($delta < 0) {
+                $node = $this->moveUp($node, abs($delta));
+            }
+        }
+        // Moved to different parent node
+        else {
+            $node->set('parent_id', $newParentId);
+            $node = $this->_table->patchEntity($node, ['parent_id' => $newParentId]);
+            if (!$this->_table->save($node)) {
+                //debug("Error: Failed to change parent");
+                //@TODO Error Handling
+                return false;
+
+            } else{
+
+                if ($newParentId) {
+                    $childCount = $this->_scope($this->_table->find('all'))
+                        ->where(['parent_id' => $newParentId])
+                        ->count();
+                } else {
+                    $childCount = $this->_scope($this->_table->find('all'))
+                        ->where(['parent_id IS' => null])
+                        ->count();
+                }
+
+                $delta = $newPos - ($childCount - 1);
+                if ($delta > 0) {
+                    $node = $this->moveDown($node, $delta);
+                } elseif ($delta < 0) {
+                    $node = $this->moveUp($node, abs($delta));
+                }
+            }
+        }
+        return $node;
     }
 
     public function moveAfter(EntityInterface $node, $after)
