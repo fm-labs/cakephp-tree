@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: flow
- * Date: 7/25/15
- * Time: 11:59 PM
- */
 
 namespace Tree\Controller;
 
