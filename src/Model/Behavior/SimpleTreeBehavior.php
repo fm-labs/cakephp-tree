@@ -84,19 +84,21 @@ class SimpleTreeBehavior extends Behavior
     {
         $options += [ 'reverse' => false ];
 
-        $scope = (array) $this->config('scope');
+        $scope = (array)$this->config('scope');
         array_push($scope, $this->config('field'));
 
         $dir = ($options['reverse']) ? 'desc' : 'asc';
         $order = array_combine($scope, array_fill(0, count($scope), $dir));
 
         $query->order($order);
+
         return $query;
     }
 
     public function moveUp(EntityInterface $node, $number = 1)
     {
         $delta = max(0, $number);
+
         return $this->_table->connection()->transactional(function () use ($node, $delta) {
             //$this->_ensureFields($node);
             return $this->_moveByDelta($node, $delta);
@@ -106,6 +108,7 @@ class SimpleTreeBehavior extends Behavior
     public function moveDown(EntityInterface $node, $number = 1)
     {
         $delta = max(0, $number) * -1;
+
         return $this->_table->connection()->transactional(function () use ($node, $delta) {
             //$this->_ensureFields($node);
             return $this->_moveByDelta($node, $delta);
@@ -148,7 +151,6 @@ class SimpleTreeBehavior extends Behavior
                 return false;
             }
 
-
             $pos = $node->get($this->_config['field']);
             $targetPos = $targetNode[$this->_config['field']];
             $newPos = ($pos > $targetPos) ? $targetPos + 1 : $targetPos;
@@ -174,7 +176,6 @@ class SimpleTreeBehavior extends Behavior
                 return false;
             }
 
-
             $pos = $node->get($this->_config['field']);
             $targetPos = $targetNode[$this->_config['field']];
             $newPos = ($pos < $targetPos) ? $targetPos - 1 : $targetPos;
@@ -197,7 +198,8 @@ class SimpleTreeBehavior extends Behavior
      *
      * @todo Refactor reordering with shifting instead of assigning new positions
      */
-    public function reorder($scope = [], $options = []) {
+    public function reorder($scope = [], $options = [])
+    {
 
         $primaryKey = $this->_primaryKey();
         $options += ['field' => $primaryKey, 'order' => 'ASC'];
@@ -211,10 +213,10 @@ class SimpleTreeBehavior extends Behavior
             ->where($scope)
             ->order([$options['field'] => $options['order']]);
 
-        $this->_table->connection()->transactional(function() use ($list, $primaryKey) {
+        $this->_table->connection()->transactional(function () use ($list, $primaryKey) {
 
             $i = 1;
-            foreach(array_keys($list->toArray()) as $id) {
+            foreach (array_keys($list->toArray()) as $id) {
                 $this->_table->updateAll([$this->_config['field'] => $i++], [$primaryKey => $id]);
             }
         });
@@ -233,7 +235,7 @@ class SimpleTreeBehavior extends Behavior
         $done = [];
 
         $result = $this->_table->find()->select($selectFields)->hydrate(true)->all();
-        $result->filter(function(EntityInterface $row) use ($scopeFields, $options, &$done) {
+        $result->filter(function (EntityInterface $row) use ($scopeFields, $options, &$done) {
 
             $_scope = $row->extract($scopeFields);
             $_scopeKey = md5(serialize($_scope));
@@ -270,7 +272,7 @@ class SimpleTreeBehavior extends Behavior
         if ($delta == 0) {
             return $node;
         }
-        
+
         $query = $this->_scoped($this->_table->query(), $node);
         $exp = $query->newExpr();
         $shift = 1;
@@ -288,7 +290,6 @@ class SimpleTreeBehavior extends Behavior
 
             $cond2 = clone $exp;
             $cond2->add($sortField)->add("{$newPos}")->type("<=");
-
         } elseif ($delta > 0) {
             // move up
             $movement = clone $exp;
@@ -311,6 +312,7 @@ class SimpleTreeBehavior extends Behavior
         $query->execute()->closeCursor();
 
         $node->set($sortField, $newPos);
+
         return $this->_table->save($node);
     }
 
@@ -320,10 +322,12 @@ class SimpleTreeBehavior extends Behavior
 
         $query = $this->_scoped($this->_table->query(), $node);
         $res = $query->select([$sortField])->hydrate(false)->orderDesc($sortField)->first();
+
         return $res[$sortField];
     }
 
-    protected function _scoped(Query $query, EntityInterface $node) {
+    protected function _scoped(Query $query, EntityInterface $node)
+    {
 
         $scope = $this->_config['scope'];
 
@@ -338,6 +342,7 @@ class SimpleTreeBehavior extends Behavior
     protected function _primaryKey()
     {
         $pk = $this->_table->primaryKey();
+
         return (is_array($pk)) ? $pk[0] : $pk;
     }
 }

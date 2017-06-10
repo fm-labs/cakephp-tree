@@ -48,6 +48,7 @@ class TreeBehavior extends BaseTreeBehavior
             //debug('Moving up ' . $delta);
             $node = $this->moveUp($node, $delta);
         }
+
         return $node;
     }
 
@@ -64,6 +65,7 @@ class TreeBehavior extends BaseTreeBehavior
             //@TODO Logging
             throw new \RuntimeException("TreeBehavior: Failed to update parent ID");
         }
+
         return $node;
     }
 
@@ -154,8 +156,6 @@ class TreeBehavior extends BaseTreeBehavior
 
         return $node;
     }
-
-
 
     /**
      * Fixed version for CakePHP 3.1.x branch:

@@ -11,9 +11,11 @@ use Cake\Network\Exception\NotFoundException;
  *
  * @property string $modelClass
  */
-trait TreeSortControllerTrait {
+trait TreeSortControllerTrait
+{
 
-    public function tree_sort() {
+    public function tree_sort()
+    {
 
         $this->autoRender = false;
         $this->response->type('text');
@@ -46,7 +48,6 @@ trait TreeSortControllerTrait {
             $data['after'] = $after;
             $data['success'] = $Model->moveAfterId($after);
             $data['status'] = 200;
-
         } catch (Exception $ex) {
             $data['status'] = $ex->getCode();
             $data['error'] = $ex->getMessage();
@@ -54,7 +55,5 @@ trait TreeSortControllerTrait {
 
         $this->response->statusCode($data['status']);
         $this->response->body(json_encode($data));
-
     }
-
-} 
+}
