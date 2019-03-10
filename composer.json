@@ -1,5 +1,5 @@
 {
-    "name": "fm-labs/cakephp3-tree",
+    "name": "fm-labs/cakephp-tree",
     "description": "Tree plugin for CakePHP",
     "type": "cakephp-plugin",
     "require": {
