@@ -201,7 +201,7 @@ class SimpleTreeBehavior extends Behavior
     public function reorder($scope = [], $options = [])
     {
 
-        $primaryKey = $this->_primaryKey();
+        $primaryKey = $this->_getPrimaryKey();
         $options += ['field' => $primaryKey, 'order' => 'ASC'];
 
         if (count($scope) !== count($this->_config['scope'])) {
@@ -228,7 +228,7 @@ class SimpleTreeBehavior extends Behavior
     {
         $selectFields = $scopeFields = $this->_config['scope'];
 
-        //$primaryKey = $this->_primaryKey();
+        //$primaryKey = $this->_getPrimaryKey();
         //array_push($selectFields, $primaryKey, $this->_config['field']);
         array_push($selectFields, $this->_config['field']);
 
@@ -339,9 +339,9 @@ class SimpleTreeBehavior extends Behavior
         return $query;
     }
 
-    protected function _primaryKey()
+    protected function _getPrimaryKey()
     {
-        $pk = $this->_table->primaryKey();
+        $pk = $this->_table->getPrimaryKey();
 
         return (is_array($pk)) ? $pk[0] : $pk;
     }

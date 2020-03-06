@@ -303,7 +303,7 @@ class TreeBehaviorTest extends TestCase
     public function assertMpttValues($expected, $table, $query = null)
     {
         $query = $query ?: $table->find();
-        $primaryKey = $table->primaryKey();
+        $primaryKey = $table->getPrimaryKey();
         if (is_array($primaryKey)) {
             $primaryKey = $primaryKey[0];
         }
