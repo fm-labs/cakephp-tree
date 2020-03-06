@@ -25,7 +25,7 @@ class TreeBehaviorTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->table = TableRegistry::get('Tree.NumberTrees');
+        $this->table = TableRegistry::getTableLocator()->get('Tree.NumberTrees');
         $this->table->primaryKey(['id']);
         $this->table->addBehavior('Tree.Tree');
 
@@ -307,7 +307,7 @@ class TreeBehaviorTest extends TestCase
         if (is_array($primaryKey)) {
             $primaryKey = $primaryKey[0];
         }
-        $displayField = $table->displayField();
+        $displayField = $table->getDisplayField();
         $options = [
             'valuePath' => function ($item, $key, $iterator) use ($primaryKey, $displayField) {
                 return sprintf(

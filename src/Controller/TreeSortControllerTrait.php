@@ -3,7 +3,7 @@
 namespace Tree\Controller;
 
 use Cake\Core\Exception\Exception;
-use Cake\Network\Exception\NotFoundException;
+use Cake\Http\Exception\NotFoundException;
 
 /**
  * Class TreeSortControllerTrait

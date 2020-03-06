@@ -5,7 +5,7 @@ use ArrayObject;
 use Cake\Core\Exception\Exception;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\Event;
-use Cake\Network\Exception\NotImplementedException;
+use Cake\Http\Exception\NotImplementedException;
 use Cake\ORM\Behavior;
 use Cake\ORM\Entity;
 use Cake\ORM\Query;
@@ -84,8 +84,8 @@ class SimpleTreeBehavior extends Behavior
     {
         $options += [ 'reverse' => false ];
 
-        $scope = (array)$this->config('scope');
-        array_push($scope, $this->config('field'));
+        $scope = (array)$this->getConfig('scope');
+        array_push($scope, $this->getConfig('field'));
 
         $dir = ($options['reverse']) ? 'desc' : 'asc';
         $order = array_combine($scope, array_fill(0, count($scope), $dir));

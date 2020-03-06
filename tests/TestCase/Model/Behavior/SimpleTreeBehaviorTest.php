@@ -36,7 +36,7 @@ class SimpleTreeBehaviorTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->table = TableRegistry::get('Content.Posts');
+        $this->table = TableRegistry::getTableLocator()->get('Content.Posts');
         $this->table->primaryKey(['id']);
         if ($this->table->behaviors()->has('SimpleTree')) {
             $this->table->behaviors()->unload('SimpleTree');
