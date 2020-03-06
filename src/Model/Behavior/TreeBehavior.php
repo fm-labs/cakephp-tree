@@ -38,7 +38,7 @@ class TreeBehavior extends BaseTreeBehavior
 
         $delta = $newPos - $oldPos;
         //debug(sprintf("TreeBehavior: Moving  [%s] node from parent %d -> %d | pos %d -> %d | delta: %d",
-        //    $this->_table->alias(), $oldParentId, $newParentId, $oldPos, $newPos, $delta));
+        //    $this->_table->getAlias(), $oldParentId, $newParentId, $oldPos, $newPos, $delta));
 
         if ($delta > 0) {
             //debug('Moving up ' . $delta);
@@ -58,7 +58,7 @@ class TreeBehavior extends BaseTreeBehavior
         $node->set('parent_id', $parentId);
         $node = $this->_table->patchEntity($node, ['parent_id' => $parentId]);
         //debug(sprintf("TreeBehavior: [%s] Update parent for node %d: %d -> %d",
-        //    $this->_table->alias(), $node->id, $node->parent_id, $parentId));
+        //    $this->_table->getAlias(), $node->id, $node->parent_id, $parentId));
 
         $node = $this->_table->save($node);
         if (!$node) {

@@ -205,7 +205,7 @@ class SimpleTreeBehavior extends Behavior
         $options += ['field' => $primaryKey, 'order' => 'ASC'];
 
         if (count($scope) !== count($this->_config['scope'])) {
-            throw new \Exception("Can not reorder table " . $this->_table->alias(). ": Scope count does not match");
+            throw new \Exception("Can not reorder table " . $this->_table->getAlias(). ": Scope count does not match");
         }
 
         $list = $this->_table
@@ -213,7 +213,7 @@ class SimpleTreeBehavior extends Behavior
             ->where($scope)
             ->order([$options['field'] => $options['order']]);
 
-        $this->_table->connection()->transactional(function () use ($list, $primaryKey) {
+        $this->_table->getConnection()->transactional(function () use ($list, $primaryKey) {
 
             $i = 1;
             foreach (array_keys($list->toArray()) as $id) {
@@ -283,27 +283,27 @@ class SimpleTreeBehavior extends Behavior
             $newPos = min($newPos, $max);
 
             $movement = clone $exp;
-            $movement->add($sortField)->add("{$shift}")->type("-");
+            $movement->add($sortField)->add("{$shift}")->setConjunction("-");
 
             $cond1 = clone $exp;
-            $cond1->add($sortField)->add("{$pos}")->type(">");
+            $cond1->add($sortField)->add("{$pos}")->setConjunction(">");
 
             $cond2 = clone $exp;
-            $cond2->add($sortField)->add("{$newPos}")->type("<=");
+            $cond2->add($sortField)->add("{$newPos}")->setConjunction("<=");
         } elseif ($delta > 0) {
             // move up
             $movement = clone $exp;
-            $movement->add($sortField)->add("{$shift}")->type("+");
+            $movement->add($sortField)->add("{$shift}")->setConjunction("+");
 
             $cond1 = clone $exp;
-            $cond1->add($sortField)->add("{$pos}")->type("<");
+            $cond1->add($sortField)->add("{$pos}")->setConjunction("<");
 
             $cond2 = clone $exp;
-            $cond2->add($sortField)->add("{$newPos}")->type(">=");
+            $cond2->add($sortField)->add("{$newPos}")->setConjunction(">=");
         }
 
         $where = clone $exp;
-        $where->add($cond1)->add($cond2)->type("AND");
+        $where->add($cond1)->add($cond2)->setConjunction("AND");
 
         $query->update()
             ->set($exp->eq($sortField, $movement))
@@ -321,7 +321,7 @@ class SimpleTreeBehavior extends Behavior
         $sortField = $this->_config['field'];
 
         $query = $this->_scoped($this->_table->query(), $node);
-        $res = $query->select([$sortField])->hydrate(false)->orderDesc($sortField)->first();
+        $res = $query->select([$sortField])->enableHydration(false)->orderDesc($sortField)->first();
 
         return $res[$sortField];
     }

@@ -63,7 +63,7 @@ class SimpleTreeBehaviorTest extends TestCase
     public function tearDown()
     {
         parent::tearDown();
-        TableRegistry::clear();
+        TableRegistry::getTableLocator()->clear();
     }
 
     public function testValues()
