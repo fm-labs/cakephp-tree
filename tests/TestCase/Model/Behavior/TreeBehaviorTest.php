@@ -14,7 +14,7 @@ use DebugKit\Database\Log\DebugLog;
 class TreeBehaviorTest extends TestCase
 {
     public $fixtures = [
-        'plugin.tree.number_trees'
+        'plugin.Tree.NumberTrees'
     ];
 
     /**
@@ -26,7 +26,7 @@ class TreeBehaviorTest extends TestCase
     {
         parent::setUp();
         $this->table = TableRegistry::getTableLocator()->get('Tree.NumberTrees');
-        $this->table->primaryKey(['id']);
+        $this->table->setPrimaryKey(['id']);
         $this->table->addBehavior('Tree.Tree');
 
         $this->_setupDbLogging();
@@ -46,11 +46,11 @@ class TreeBehaviorTest extends TestCase
 
         $connection = ConnectionManager::get('test');
 
-        $logger = $connection->logger();
+        $logger = $connection->getLogger();
         $this->dbLogger = new DebugLog($logger, 'test');
 
-        $connection->logQueries(true);
-        $connection->logger($this->dbLogger);
+        $connection->enableQueryLogging(true);
+        $connection->setLogger($this->dbLogger);
     }
 
     public function tearDown()
@@ -263,7 +263,7 @@ class TreeBehaviorTest extends TestCase
 
     public function testMoveToSelf()
     {
-        $this->setExpectedException('\LogicException', 'Can not move tree node into itself');
+        $this->expectException('\LogicException');
         $this->table->moveTo($this->table->get(3), 3, 1, 1);
     }
 

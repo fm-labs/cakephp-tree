@@ -19,8 +19,7 @@ use DebugKit\Database\Log\DebugLog;
 class SimpleTreeBehaviorTest extends TestCase
 {
     public $fixtures = [
-        'plugin.content.posts',
-        'plugin.content.i18n'
+        'plugin.Tree.SortedPosts',
     ];
 
     /**
@@ -36,12 +35,11 @@ class SimpleTreeBehaviorTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->table = TableRegistry::getTableLocator()->get('Content.Posts');
-        $this->table->primaryKey(['id']);
+        $this->table = TableRegistry::getTableLocator()->get('Tree.SortedPosts');
+        $this->table->setPrimaryKey(['id']);
         if ($this->table->behaviors()->has('SimpleTree')) {
             $this->table->behaviors()->unload('SimpleTree');
         }
-        $this->table->removeBehavior('Translate');
         $this->table->addBehavior('Tree.SimpleTree', ['scope' => []]);
 
         //$this->_setupDbLogging();
@@ -53,11 +51,11 @@ class SimpleTreeBehaviorTest extends TestCase
 
         $connection = ConnectionManager::get('test');
 
-        $logger = $connection->logger();
+        $logger = $connection->getLogger();
         $this->dbLogger = new DebugLog($logger, 'test');
 
-        $connection->logQueries(true);
-        $connection->logger($this->dbLogger);
+        $connection->enableQueryLogging(true);
+        $connection->setLogger($this->dbLogger);
     }
 
     public function tearDown()
@@ -78,14 +76,14 @@ class SimpleTreeBehaviorTest extends TestCase
 
     public function testFindSorted()
     {
-        $sorted = $this->table->find('sorted')->select(['id', 'title', 'pos'])->hydrate(false)->all();
+        $sorted = $this->table->find('sorted')->select(['id', 'title', 'pos'])->enableHydration(false)->all();
         //debug($sorted->toArray());
         $this->markTestIncomplete();
     }
 
     public function testFindSortedReverse()
     {
-        $sorted = $this->table->find('sorted')->select(['id', 'title', 'pos'])->hydrate(false)->all();
+        $sorted = $this->table->find('sorted')->select(['id', 'title', 'pos'])->enableHydration(false)->all();
         //debug($sorted->toArray());
         $this->markTestIncomplete();
     }
@@ -359,7 +357,7 @@ class SimpleTreeBehaviorTest extends TestCase
 
     protected function loadScopedRecords()
     {
-        return $this->table->connection()->transactional(function () {
+        return $this->table->getConnection()->transactional(function () {
             $this->table->deleteAll([1 => 1]);
             $this->table->save($this->table->newEntity(['refscope' => 'TestScope', 'refid' => 99, 'pos' => 1, 'title' => 'Test Scoped 2', 'is_published' => true]));
             $this->table->save($this->table->newEntity(['refscope' => 'TestScope', 'refid' => 99, 'pos' => 2, 'title' => 'Test Scoped 2', 'is_published' => true]));
@@ -377,7 +375,7 @@ class SimpleTreeBehaviorTest extends TestCase
     public function testFindSortedScoped()
     {
         $this->setupScoped();
-        $sorted = $this->table->find('sorted')->select(['id', 'title', 'pos'])->hydrate(false)->all();
+        $sorted = $this->table->find('sorted')->select(['id', 'title', 'pos'])->enableHydration(false)->all();
         //debug($sorted->toArray());
 
         $this->markTestIncomplete();

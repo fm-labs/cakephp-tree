@@ -99,7 +99,7 @@ class SimpleTreeBehavior extends Behavior
     {
         $delta = max(0, $number);
 
-        return $this->_table->connection()->transactional(function () use ($node, $delta) {
+        return $this->_table->getConnection()->transactional(function () use ($node, $delta) {
             //$this->_ensureFields($node);
             return $this->_moveByDelta($node, $delta);
         });
@@ -109,7 +109,7 @@ class SimpleTreeBehavior extends Behavior
     {
         $delta = max(0, $number) * -1;
 
-        return $this->_table->connection()->transactional(function () use ($node, $delta) {
+        return $this->_table->getConnection()->transactional(function () use ($node, $delta) {
             //$this->_ensureFields($node);
             return $this->_moveByDelta($node, $delta);
         });
@@ -117,7 +117,7 @@ class SimpleTreeBehavior extends Behavior
 
     public function moveTop(EntityInterface $node)
     {
-        return $this->_table->connection()->transactional(function () use ($node) {
+        return $this->_table->getConnection()->transactional(function () use ($node) {
             //$this->_ensureFields($node);
             return $this->_moveToPosition($node, 1);
         });
@@ -125,7 +125,7 @@ class SimpleTreeBehavior extends Behavior
 
     public function moveBottom(EntityInterface $node)
     {
-        return $this->_table->connection()->transactional(function () use ($node) {
+        return $this->_table->getConnection()->transactional(function () use ($node) {
             //$this->_ensureFields($node);
             return $this->_moveToPosition($node, $this->_getMaxPos($node));
         });
@@ -137,12 +137,12 @@ class SimpleTreeBehavior extends Behavior
             return $this->moveTop($node);
         }
 
-        return $this->_table->connection()->transactional(function () use ($node, $targetId) {
+        return $this->_table->getConnection()->transactional(function () use ($node, $targetId) {
             //$this->_ensureFields($node);
 
             $targetQuery = $this->_scoped($this->_table->query(), $node);
             $targetNode = $targetQuery
-                ->hydrate(false)
+                ->enableHydration(false)
                 ->select($this->_config['field'])
                 ->where([ 'id' => $targetId ])
                 ->first();
@@ -162,12 +162,12 @@ class SimpleTreeBehavior extends Behavior
 
     public function moveBefore(EntityInterface $node, $targetId)
     {
-        return $this->_table->connection()->transactional(function () use ($node, $targetId) {
+        return $this->_table->getConnection()->transactional(function () use ($node, $targetId) {
             //$this->_ensureFields($node);
 
             $targetQuery = $this->_scoped($this->_table->query(), $node);
             $targetNode = $targetQuery
-                ->hydrate(false)
+                ->enableHydration(false)
                 ->select($this->_config['field'])
                 ->where([ 'id' => $targetId ])
                 ->first();
