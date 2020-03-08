@@ -2,7 +2,6 @@
 
 namespace Tree\Test\Model\Behavior;
 
-
 use Cake\Datasource\ConnectionManager;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
@@ -14,7 +13,7 @@ use DebugKit\Database\Log\DebugLog;
 class TreeBehaviorTest extends TestCase
 {
     public $fixtures = [
-        'plugin.Tree.NumberTrees'
+        'plugin.Tree.NumberTrees',
     ];
 
     /**
@@ -31,7 +30,6 @@ class TreeBehaviorTest extends TestCase
 
         $this->_setupDbLogging();
     }
-
 
     /**
      * Initialize hook - configures logger.
@@ -80,7 +78,7 @@ class TreeBehaviorTest extends TestCase
             '___12:13 -  8:flash',
             '__15:16 -  9:cd',
             '__17:18 - 10:radios',
-            '21:22 - 11:alien hardware'
+            '21:22 - 11:alien hardware',
         ];
         $this->assertMpttValues($expected, $this->table);
     }
@@ -123,7 +121,7 @@ class TreeBehaviorTest extends TestCase
             '___12:13 -  8:flash',
             '__15:16 -  9:cd',
             '__17:18 - 10:radios',
-            '21:22 - 11:alien hardware'
+            '21:22 - 11:alien hardware',
         ];
         //debug($this->table->find('treeList')->toArray());
         $this->assertMpttValues($expected, $this->table);
@@ -140,7 +138,7 @@ class TreeBehaviorTest extends TestCase
             '___12:13 -  8:flash',
             '__15:16 -  9:cd',
             '__17:18 - 10:radios',
-            '21:22 - 11:alien hardware'
+            '21:22 - 11:alien hardware',
         ];
         $this->assertMpttValues($expected, $this->table);
     }
@@ -159,7 +157,7 @@ class TreeBehaviorTest extends TestCase
             '___12:13 -  8:flash',
             '__15:16 -  9:cd',
             '__17:18 - 10:radios',
-            '21:22 - 11:alien hardware'
+            '21:22 - 11:alien hardware',
         ];
         $this->assertMpttValues($expected, $this->table);
 
@@ -175,11 +173,10 @@ class TreeBehaviorTest extends TestCase
             '___12:13 -  8:flash',
             '__15:16 -  9:cd',
             '__17:18 - 10:radios',
-            '21:22 - 11:alien hardware'
+            '21:22 - 11:alien hardware',
         ];
         $this->assertMpttValues($expected, $this->table);
     }
-
 
     public function testMoveToPositionOnSameLevel()
     {
@@ -198,7 +195,7 @@ class TreeBehaviorTest extends TestCase
             '___12:13 -  8:flash',
             '__15:16 -  9:cd',
             '__17:18 - 10:radios',
-            '21:22 - 11:alien hardware'
+            '21:22 - 11:alien hardware',
         ];
         $this->assertMpttValues($expected, $this->table);
     }
@@ -238,7 +235,7 @@ class TreeBehaviorTest extends TestCase
             '___12:13 -  8:flash',
             '__15:16 -  9:cd',
             '__17:18 - 10:radios',
-            '21:22 - 11:alien hardware'
+            '21:22 - 11:alien hardware',
         ];
 
         $newParentId = 1; # changed
@@ -256,7 +253,7 @@ class TreeBehaviorTest extends TestCase
             '___12:13 -  8:flash',
             '__15:16 -  9:cd',
             '__17:18 - 10:radios',
-            '21:22 - 11:alien hardware'
+            '21:22 - 11:alien hardware',
         ];
         $this->assertMpttValues($expected, $this->table);
     }
@@ -288,7 +285,6 @@ class TreeBehaviorTest extends TestCase
         $this->assertMpttValues($expected, $this->table);
     }
 
-
     /**
      * Assert MPTT values
      *
@@ -317,7 +313,7 @@ class TreeBehaviorTest extends TestCase
                     str_pad($item->$primaryKey, 2, ' ', STR_PAD_LEFT),
                     $item->{$displayField}
                 );
-            }
+            },
         ];
         $result = array_values($query->find('treeList', $options)->toArray());
         if (count($result) === count($expected)) {
@@ -329,5 +325,4 @@ class TreeBehaviorTest extends TestCase
         }
         $this->assertSame($expected, $result, 'The tree is not the same (lft:rght id:display-name)');
     }
-
 }

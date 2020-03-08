@@ -2,7 +2,6 @@
 
 namespace Tree\Test\Model\Behavior;
 
-
 use Content\Model\Table\PostsTable;
 use Cake\Core\Exception\Exception;
 use Cake\Datasource\ConnectionManager;
@@ -45,7 +44,6 @@ class SimpleTreeBehaviorTest extends TestCase
         //$this->_setupDbLogging();
     }
 
-
     protected function _setupDbLogging()
     {
 
@@ -70,7 +68,7 @@ class SimpleTreeBehaviorTest extends TestCase
             1 => 1,
             2 => 2,
             3 => 3,
-            4 => 4
+            4 => 4,
         ]);
     }
 
@@ -94,7 +92,7 @@ class SimpleTreeBehaviorTest extends TestCase
             ->find('list')
             ->find('sorted');
 
-        $this->assertEquals([1,2,3,4], array_keys($sorted->toArray()));
+        $this->assertEquals([1, 2, 3, 4], array_keys($sorted->toArray()));
     }
 
     public function testFindSortedListReverse()
@@ -103,7 +101,7 @@ class SimpleTreeBehaviorTest extends TestCase
             ->find('list')
             ->find('sorted', ['reverse' => true]);
 
-        $this->assertEquals([4,3,2,1], array_keys($sorted->toArray()));
+        $this->assertEquals([4, 3, 2, 1], array_keys($sorted->toArray()));
     }
 
     public function testMoveUp()
@@ -123,7 +121,7 @@ class SimpleTreeBehaviorTest extends TestCase
             1 => 1,
             2 => 3,
             3 => 2,
-            4 => 4
+            4 => 4,
         ]);
     }
 
@@ -135,7 +133,7 @@ class SimpleTreeBehaviorTest extends TestCase
             1 => 1,
             2 => 3,
             3 => 2,
-            4 => 4
+            4 => 4,
         ]);
 
         $entity = $this->table->moveDown($this->table->get(4));
@@ -144,7 +142,7 @@ class SimpleTreeBehaviorTest extends TestCase
             1 => 1,
             2 => 3,
             3 => 2,
-            4 => 4
+            4 => 4,
         ]);
     }
 
@@ -157,7 +155,7 @@ class SimpleTreeBehaviorTest extends TestCase
             1 => 2,
             2 => 3,
             3 => 1,
-            4 => 4
+            4 => 4,
         ]);
     }
 
@@ -177,7 +175,7 @@ class SimpleTreeBehaviorTest extends TestCase
             1 => 2,
             2 => 3,
             3 => 4,
-            4 => 1
+            4 => 1,
         ]);
     }
 
@@ -190,7 +188,7 @@ class SimpleTreeBehaviorTest extends TestCase
             1 => 1,
             2 => 4,
             3 => 2,
-            4 => 3
+            4 => 3,
         ]);
     }
 
@@ -203,7 +201,7 @@ class SimpleTreeBehaviorTest extends TestCase
             1 => 1,
             3 => 2,
             2 => 3,
-            4 => 4
+            4 => 4,
         ]);
 
         // move after higher node
@@ -239,7 +237,7 @@ class SimpleTreeBehaviorTest extends TestCase
             1 => 4,
             2 => 1,
             3 => 2,
-            4 => 3
+            4 => 3,
         ]);
     }
 
@@ -252,7 +250,7 @@ class SimpleTreeBehaviorTest extends TestCase
             1 => 4,
             2 => 1,
             3 => 2,
-            4 => 3
+            4 => 3,
         ]);
     }
 
@@ -295,7 +293,7 @@ class SimpleTreeBehaviorTest extends TestCase
             1 => 2,
             2 => 3,
             3 => 4,
-            4 => 1
+            4 => 1,
         ]);
     }
 
@@ -308,7 +306,7 @@ class SimpleTreeBehaviorTest extends TestCase
             1 => 3,
             2 => 1,
             3 => 2,
-            4 => 4
+            4 => 4,
         ]);
     }
 
@@ -321,10 +319,9 @@ class SimpleTreeBehaviorTest extends TestCase
             2 => 2,
             3 => 3,
             4 => 4,
-            5 => 5
+            5 => 5,
         ]);
     }
-
 
     public function testDeleteRecord()
     {
@@ -338,8 +335,8 @@ class SimpleTreeBehaviorTest extends TestCase
 
     /**********************************************************************************/
     /********* S C O P E D    B E H A V I O R    T E S T S ****************************/
-    /**********************************************************************************/
 
+    /**********************************************************************************/
 
     public function setupScoped()
     {
@@ -394,7 +391,7 @@ class SimpleTreeBehaviorTest extends TestCase
             8 => 4,
             9 => 1,
             10 => 2,
-            11 => 3
+            11 => 3,
         ]);
     }
 
@@ -414,7 +411,7 @@ class SimpleTreeBehaviorTest extends TestCase
             8 => 4,
             10 => 1,
             9 => 2,
-            11 => 3
+            11 => 3,
         ]);
 
         $entity = $this->table->moveUp($this->table->get(10));
@@ -426,7 +423,7 @@ class SimpleTreeBehaviorTest extends TestCase
             8 => 4,
             10 => 1,
             9 => 2,
-            11 => 3
+            11 => 3,
         ]);
 
         $entity = $this->table->moveUp($this->table->get(7));
@@ -438,7 +435,7 @@ class SimpleTreeBehaviorTest extends TestCase
             8 => 4,
             10 => 1,
             9 => 2,
-            11 => 3
+            11 => 3,
         ]);
     }
 
@@ -457,7 +454,7 @@ class SimpleTreeBehaviorTest extends TestCase
             8 => 4,
             10 => 1,
             9 => 2,
-            11 => 3
+            11 => 3,
         ]);
 
         $entity = $this->table->moveDown($this->table->get(8));
@@ -469,7 +466,7 @@ class SimpleTreeBehaviorTest extends TestCase
             8 => 4,
             10 => 1,
             9 => 2,
-            11 => 3
+            11 => 3,
         ]);
 
         $entity = $this->table->moveDown($this->table->get(6));
@@ -481,9 +478,8 @@ class SimpleTreeBehaviorTest extends TestCase
             8 => 4,
             10 => 1,
             9 => 2,
-            11 => 3
+            11 => 3,
         ]);
-
     }
 
     /**
@@ -564,7 +560,7 @@ class SimpleTreeBehaviorTest extends TestCase
             5 => 4,
             9 => 1,
             10 => 2,
-            11 => 3
+            11 => 3,
         ]);
 
         // move after higher node
@@ -577,7 +573,7 @@ class SimpleTreeBehaviorTest extends TestCase
             8 => 4,
             9 => 1,
             10 => 2,
-            11 => 3
+            11 => 3,
         ]);
 
         // moving after node with different scope -> fail
@@ -590,7 +586,7 @@ class SimpleTreeBehaviorTest extends TestCase
             8 => 4,
             9 => 1,
             10 => 2,
-            11 => 3
+            11 => 3,
         ]);
     }
 
@@ -610,7 +606,7 @@ class SimpleTreeBehaviorTest extends TestCase
             7 => 4,
             9 => 1,
             10 => 2,
-            11 => 3
+            11 => 3,
         ]);
 
         // move before lower node
@@ -623,9 +619,8 @@ class SimpleTreeBehaviorTest extends TestCase
             7 => 4,
             10 => 1,
             9 => 2,
-            11 => 3
+            11 => 3,
         ]);
-
 
         // moving before node with different scope -> fail
         $entity = $this->table->moveBefore($this->table->get(8), 10);
@@ -637,7 +632,7 @@ class SimpleTreeBehaviorTest extends TestCase
             7 => 4,
             10 => 1,
             9 => 2,
-            11 => 3
+            11 => 3,
         ]);
     }
 
@@ -651,7 +646,7 @@ class SimpleTreeBehaviorTest extends TestCase
             'refscope' => 'TestScope',
             'refid' => 99,
             'title' => 'Test Scoped New Record',
-            'is_published' => true
+            'is_published' => true,
         ]));
         $this->assertEquals(5, $new->pos);
         $this->assertScopedPositions([
@@ -662,7 +657,7 @@ class SimpleTreeBehaviorTest extends TestCase
             12 => 5,
             9 => 1,
             10 => 2,
-            11 => 3
+            11 => 3,
         ]);
     }
 
@@ -679,7 +674,7 @@ class SimpleTreeBehaviorTest extends TestCase
             8 => 3,
             9 => 1,
             10 => 2,
-            11 => 3
+            11 => 3,
         ]);
 
         $this->table->delete($this->table->get(10));
@@ -688,7 +683,7 @@ class SimpleTreeBehaviorTest extends TestCase
             6 => 2,
             8 => 3,
             9 => 1,
-            11 => 2
+            11 => 2,
         ]);
     }
 

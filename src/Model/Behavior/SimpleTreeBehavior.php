@@ -34,7 +34,7 @@ class SimpleTreeBehavior extends Behavior
             'moveBottom' => 'moveBottom',
             'moveAfter' => 'moveAfter',
             'moveBefore' => 'moveBefore',
-            'reorder' => 'reorder'
+            'reorder' => 'reorder',
         ],
         'field' => 'pos', // the sort position field
         'scope' => [], // sorting scope
@@ -76,7 +76,7 @@ class SimpleTreeBehavior extends Behavior
         $conditions = $entity->extract($this->_config['scope']);
         $this->reorder($conditions, [
             'field' => $this->_config['field'],
-            'order' => 'ASC'
+            'order' => 'ASC',
         ]);
     }
 
@@ -205,7 +205,7 @@ class SimpleTreeBehavior extends Behavior
         $options += ['field' => $primaryKey, 'order' => 'ASC'];
 
         if (count($scope) !== count($this->_config['scope'])) {
-            throw new \Exception("Can not reorder table " . $this->_table->getAlias(). ": Scope count does not match");
+            throw new \Exception("Can not reorder table " . $this->_table->getAlias() . ": Scope count does not match");
         }
 
         $list = $this->_table

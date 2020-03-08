@@ -51,28 +51,28 @@ class SortedPostsFixture extends TestFixture
             'refscope' => null,
             'refid' => null,
             'title' => 'Lorem ipsum dolor sit amet',
-            'pos' => 1
+            'pos' => 1,
         ],
         [
             'id' => 2,
             'refscope' => null,
             'refid' => null,
             'title' => 'Lorem ipsum dolor sit amet',
-            'pos' => 2
+            'pos' => 2,
         ],
         [
             'id' => 3,
             'refscope' => null,
             'refid' => null,
             'title' => 'Lorem ipsum dolor sit amet',
-            'pos' => 3
+            'pos' => 3,
         ],
         [
             'id' => 4,
             'refscope' => null,
             'refid' => null,
             'title' => 'Lorem ipsum dolor sit amet',
-            'pos' => 4
+            'pos' => 4,
         ],
     ];
 }
