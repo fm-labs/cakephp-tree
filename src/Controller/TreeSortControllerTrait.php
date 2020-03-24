@@ -35,7 +35,7 @@ trait TreeSortControllerTrait
                 throw new Exception("Invalid request method", 400);
             }
 
-            $raw = $this->request->data;
+            $raw = $this->request->getData();
             $id = (isset($raw['id'])) ? $raw['id'] : null;
             $after = (isset($raw['after'])) ? $raw['after'] : 0;
 
