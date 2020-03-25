@@ -234,7 +234,7 @@ class SimpleTreeBehavior extends Behavior
 
         $done = [];
 
-        $result = $this->_table->find()->select($selectFields)->hydrate(true)->all();
+        $result = $this->_table->find()->select($selectFields)->enableHydration(true)->all();
         $result->filter(function (EntityInterface $row) use ($scopeFields, $options, &$done) {
 
             $_scope = $row->extract($scopeFields);
