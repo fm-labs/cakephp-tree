@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Tree\Model\Behavior;
 
@@ -8,7 +9,6 @@ use Cake\ORM\Table;
 
 class TreeBehavior extends BaseTreeBehavior
 {
-
     public function __construct(Table $table, array $config = [])
     {
         $this->_defaultConfig['implementedMethods']['moveAfter'] = 'moveAfter';
@@ -33,7 +33,7 @@ class TreeBehavior extends BaseTreeBehavior
         if ($newParentId != $oldParentId) {
             $node = $this->_updateParentId($node, $newParentId);
             $childCount = $this->_getNodeCount($newParentId);
-            $oldPos = ($childCount - 1);
+            $oldPos = $childCount - 1;
         }
 
         $delta = $newPos - $oldPos;
@@ -96,8 +96,8 @@ class TreeBehavior extends BaseTreeBehavior
             $node = $this->_updateParentId($node, $targetNode->parent_id);
         }
 
-        list($nodeLeft, $nodeRight) = array_values($node->extract(['lft', 'rght']));
-        list($targetLeft, $targetRight) = array_values($targetNode->extract(['lft', 'rght']));
+        [$nodeLeft, $nodeRight] = array_values($node->extract(['lft', 'rght']));
+        [$targetLeft, $targetRight] = array_values($targetNode->extract(['lft', 'rght']));
         //debug('NodeLeft: ' . $nodeLeft . ' | NodeRight: ' . $nodeRight);
         //debug('TargetLeft: ' . $targetLeft . ' | TargetRight: ' . $targetRight);
 
@@ -133,8 +133,8 @@ class TreeBehavior extends BaseTreeBehavior
             $node = $this->_updateParentId($node, $targetNode->parent_id);
         }
 
-        list($nodeLeft, $nodeRight) = array_values($node->extract(['lft', 'rght']));
-        list($targetLeft, $targetRight) = array_values($targetNode->extract(['lft', 'rght']));
+        [$nodeLeft, $nodeRight] = array_values($node->extract(['lft', 'rght']));
+        [$targetLeft, $targetRight] = array_values($targetNode->extract(['lft', 'rght']));
         //debug('NodeLeft: ' . $nodeLeft . ' | NodeRight: ' . $nodeRight);
         //debug('TargetLeft: ' . $targetLeft . ' | TargetRight: ' . $targetRight);
 

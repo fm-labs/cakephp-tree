@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Tree\Controller;
 
@@ -13,7 +14,6 @@ use Cake\Http\Exception\NotFoundException;
  */
 trait TreeSortControllerTrait
 {
-
     public function tree_sort()
     {
 
@@ -36,8 +36,8 @@ trait TreeSortControllerTrait
             }
 
             $raw = $this->request->getData();
-            $id = (isset($raw['id'])) ? $raw['id'] : null;
-            $after = (isset($raw['after'])) ? $raw['after'] : 0;
+            $id = $raw['id'] ?? null;
+            $after = $raw['after'] ?? 0;
 
             if (!$id) {
                 throw new Exception("Invalid param: Missing param 'id'", 400);

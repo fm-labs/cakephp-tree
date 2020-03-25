@@ -1,9 +1,8 @@
 <?php
+declare(strict_types=1);
 
 namespace Tree\Test\TestCase\Model\Behavior;
 
-use Content\Model\Table\PostsTable;
-use Cake\Core\Exception\Exception;
 use Cake\Datasource\ConnectionManager;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
@@ -333,10 +332,7 @@ class SimpleTreeBehaviorTest extends TestCase
         ]);
     }
 
-    /**********************************************************************************/
     /********* S C O P E D    B E H A V I O R    T E S T S ****************************/
-
-    /**********************************************************************************/
 
     public function setupScoped()
     {

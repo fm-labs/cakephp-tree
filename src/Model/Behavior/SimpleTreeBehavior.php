@@ -1,15 +1,14 @@
 <?php
+declare(strict_types=1);
+
 namespace Tree\Model\Behavior;
 
 use ArrayObject;
-use Cake\Core\Exception\Exception;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\Event;
-use Cake\Http\Exception\NotImplementedException;
 use Cake\ORM\Behavior;
 use Cake\ORM\Entity;
 use Cake\ORM\Query;
-use Cake\Utility\Inflector;
 
 /**
  * Class SimpleTreeBehavior
@@ -49,8 +48,8 @@ class SimpleTreeBehavior extends Behavior
     }
 
     /**
-     * @param Event $event The event
-     * @param Entity $entity The entity
+     * @param \Cake\Event\Event $event The event
+     * @param \Cake\ORM\Entity $entity The entity
      * @param \ArrayObject $options
      * @param $operation
      * @return void
@@ -60,8 +59,8 @@ class SimpleTreeBehavior extends Behavior
     }
 
     /**
-     * @param Event $event The event
-     * @param Entity $entity The entity
+     * @param \Cake\Event\Event $event The event
+     * @param \Cake\ORM\Entity $entity The entity
      * @return void
      */
     public function beforeSave(Event $event, Entity $entity)
@@ -87,7 +86,7 @@ class SimpleTreeBehavior extends Behavior
         $scope = (array)$this->getConfig('scope');
         array_push($scope, $this->getConfig('field'));
 
-        $dir = ($options['reverse']) ? 'desc' : 'asc';
+        $dir = $options['reverse'] ? 'desc' : 'asc';
         $order = array_combine($scope, array_fill(0, count($scope), $dir));
 
         $query->order($order);
@@ -153,7 +152,7 @@ class SimpleTreeBehavior extends Behavior
 
             $pos = $node->get($this->_config['field']);
             $targetPos = $targetNode[$this->_config['field']];
-            $newPos = ($pos > $targetPos) ? $targetPos + 1 : $targetPos;
+            $newPos = $pos > $targetPos ? $targetPos + 1 : $targetPos;
 
             //debug("Move $pos AFTER $targetPos : NewPos $newPos --> Delta " . ($pos - $newPos));
             return $this->_moveToPosition($node, $newPos);
@@ -178,7 +177,7 @@ class SimpleTreeBehavior extends Behavior
 
             $pos = $node->get($this->_config['field']);
             $targetPos = $targetNode[$this->_config['field']];
-            $newPos = ($pos < $targetPos) ? $targetPos - 1 : $targetPos;
+            $newPos = $pos < $targetPos ? $targetPos - 1 : $targetPos;
 
             //debug("Move $pos BEFORE $targetPos : NewPos $newPos --> Delta " . ($pos - $newPos));
             return $this->_moveToPosition($node, $newPos);
@@ -343,6 +342,6 @@ class SimpleTreeBehavior extends Behavior
     {
         $pk = $this->_table->getPrimaryKey();
 
-        return (is_array($pk)) ? $pk[0] : $pk;
+        return is_array($pk) ? $pk[0] : $pk;
     }
 }

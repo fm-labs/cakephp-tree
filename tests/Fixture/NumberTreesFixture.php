@@ -24,7 +24,6 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class NumberTreesFixture extends TestFixture
 {
-
     /**
      * fields property
      *
