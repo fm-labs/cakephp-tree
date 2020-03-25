@@ -17,7 +17,7 @@ class TreeBehavior extends BaseTreeBehavior
         parent::__construct($table, $config);
     }
 
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         parent::initialize($config);
     }
@@ -166,7 +166,7 @@ class TreeBehavior extends BaseTreeBehavior
      *
      * @return int
      */
-    protected function _getMax()
+    protected function _getMax(): int
     {
         //@TODO Do a version compare on CakePHP version. Call parent if version >= 3.2.*
 

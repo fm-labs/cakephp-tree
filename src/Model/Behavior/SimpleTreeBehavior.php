@@ -43,7 +43,7 @@ class SimpleTreeBehavior extends Behavior
      * @param array $config Behavior config
      * @return void
      */
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
     }
 
