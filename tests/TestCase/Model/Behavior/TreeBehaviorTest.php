@@ -1,6 +1,6 @@
 <?php
 
-namespace Tree\Test\Model\Behavior;
+namespace Tree\Test\TestCase\Model\Behavior;
 
 use Cake\Datasource\ConnectionManager;
 use Cake\ORM\TableRegistry;
@@ -21,7 +21,7 @@ class TreeBehaviorTest extends TestCase
      */
     public $dbLogger;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->table = TableRegistry::getTableLocator()->get('Tree.NumberTrees');
@@ -51,7 +51,7 @@ class TreeBehaviorTest extends TestCase
         $connection->setLogger($this->dbLogger);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         TableRegistry::getTableLocator()->clear();

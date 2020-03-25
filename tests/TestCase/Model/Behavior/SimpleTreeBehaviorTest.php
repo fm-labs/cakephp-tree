@@ -1,6 +1,6 @@
 <?php
 
-namespace Tree\Test\Model\Behavior;
+namespace Tree\Test\TestCase\Model\Behavior;
 
 use Content\Model\Table\PostsTable;
 use Cake\Core\Exception\Exception;
@@ -31,7 +31,7 @@ class SimpleTreeBehaviorTest extends TestCase
      */
     public $table;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->table = TableRegistry::getTableLocator()->get('Tree.SortedPosts');
@@ -56,7 +56,7 @@ class SimpleTreeBehaviorTest extends TestCase
         $connection->setLogger($this->dbLogger);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         TableRegistry::getTableLocator()->clear();
