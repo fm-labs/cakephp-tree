@@ -309,9 +309,9 @@ class TreeBehaviorTest extends TestCase
             'valuePath' => function ($item, $key, $iterator) use ($primaryKey, $displayField) {
                 return sprintf(
                     '%s:%s - %s:%s',
-                    str_pad($item->lft, 2, ' ', STR_PAD_LEFT),
-                    str_pad($item->rght, 2, ' ', STR_PAD_LEFT),
-                    str_pad($item->$primaryKey, 2, ' ', STR_PAD_LEFT),
+                    str_pad((string)$item->lft, 2, ' ', STR_PAD_LEFT),
+                    str_pad((string)$item->rght, 2, ' ', STR_PAD_LEFT),
+                    str_pad((string)$item->$primaryKey, 2, ' ', STR_PAD_LEFT),
                     $item->{$displayField}
                 );
             },
