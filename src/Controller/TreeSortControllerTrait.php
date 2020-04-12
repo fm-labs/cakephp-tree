@@ -14,9 +14,8 @@ use Cake\Http\Exception\NotFoundException;
  */
 trait TreeSortControllerTrait
 {
-    public function tree_sort()
+    public function treeSort()
     {
-
         $this->autoRender = false;
         $this->response->type('text');
 
