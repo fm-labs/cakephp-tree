@@ -11,8 +11,8 @@ use DebugKit\Database\Log\DebugLog;
 /**
  * Class SimpleTreeBehaviorTest
  *
- * @package Banana\Test\Model\Behavior
- * @todo Remove dependency on Banana plugin
+ * @package Cupcake\Test\Model\Behavior
+ * @todo Remove dependency on Cupcake plugin
  */
 class SimpleTreeBehaviorTest extends TestCase
 {
