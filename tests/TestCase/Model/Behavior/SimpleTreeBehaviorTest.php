@@ -11,8 +11,7 @@ use DebugKit\Database\Log\DebugLog;
 /**
  * Class SimpleTreeBehaviorTest
  *
- * @package Cupcake\Test\Model\Behavior
- * @todo Remove dependency on Cupcake plugin
+ * @package Tree\Test\Model\Behavior
  */
 class SimpleTreeBehaviorTest extends TestCase
 {
